@@ -2,9 +2,9 @@ Opioid Manager
 ==============
 
 Two programs to manage urine drug screenings and naloxone prescriptions in long
-term opiate populations within CPRS:
+term opiate populations within CPRS.
 
-**Naloxone Batch /UDS (Urine Drug Screen) Batch**
+**Naloxone Batch and UDS (Urine Drug Screen) Batch**
 
 For a given provider’s long-term opioid patients, creates Nalxone/UDS orders and
 mail out letters if overdue
