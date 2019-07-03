@@ -20,6 +20,7 @@ CSVtoArray(file)
 					break
 				}
 				Pack := "000000000"
+				NamesArray[A_Index, 3] := StrReplace(NamesArray[A_Index, 3], "-" , "")
 				NamesArray[A_Index, 3] := SubStr(Pack, 1, StrLen(Pack) - StrLen(NamesArray[A_Index, 3])) . NamesArray[A_Index, 3]
 				NamesArray[A_Index, 13] := DateParse(NamesArray[A_Index, 13])"000000"
 				NamesArray[A_Index, 19] := DateParse(NamesArray[A_Index, 19])"000000"

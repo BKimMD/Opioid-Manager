@@ -4,12 +4,9 @@ LetterWriter(Message)
 	SetKeyDelay, 1, 1
 	
 	WinWaitActive, VistA CPRS ahk_exe CPRSChart.exe
-	Send ^n
-	sleep 50
 	
-	while (A_Cursor = AppStarting) or (A_Cursor = Wait)
-		sleep 500
-	
+	GotoCPRSPage("frmNotes")
+
 	Send +^n
 	WinWaitActive, Progress Note Properties ahk_class TfrmNoteProperties,,20
 	send FOLLOW UP LETTER{enter}
@@ -19,19 +16,51 @@ LetterWriter(Message)
 	control, check,,TCPRSDialogParentCheckBox8,A ;HWND FOR RMR
 ;	control, check,,TCPRSDialogParentCheckBox18,A ;HWND for Labs
 	control, check,,TButton4,A
-	
-	WinWaitActive, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
 
-	while (A_Cursor = AppStarting) or (A_Cursor = Wait)
-		sleep 500
-	
+/*
+	Start := A_TickCount
+	while (A_TickCount-Start <= 500)
+	{
+		IfWinNotActive, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
+		{
+			Start := A_TickCount
+			sleep 500
+		}
+		while (A_Cursor = AppStarting) or (A_Cursor = Wait)
+		{
+			Start := A_TickCount
+			sleep 500
+		}
+	}
+*/
+
+	ControlFocus, TRichEdit3, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
 	ControlGetText, LetterString, TRichEdit3, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
+;	Message .= {PGDN}
 	LetterString .= Message
 ;	msgbox % LetterString
+
+/*
+	Start := A_TickCount
+	while (A_TickCount-Start <= 500)
+	{
+		IfWinNotActive, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
+		{
+			Start := A_TickCount
+			sleep 500
+		}
+		while (A_Cursor = AppStarting) or (A_Cursor = Wait)
+		{
+			Start := A_TickCount
+			sleep 500
+		}
+	}
+
+*/
 	ControlSetText, TRichEdit3, %LetterString%, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
 	;var .= var1 .= var2 .= var3 https://autohotkey.com/board/topic/29596-combining-variables/
-	ControlFocus, TRichEdit3, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
-	ControlSend, TRichEdit3, {PGDN}, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
+
+;	ControlSend, TRichEdit3, {PGDN}, ahk_class TfrmFrame ahk_exe CPRSChart.exe, frmNotes
 	;SetControlDelay, 0
 
 /*

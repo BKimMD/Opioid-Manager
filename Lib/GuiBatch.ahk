@@ -2,8 +2,15 @@ GuiBatch(PtInfo, BatchTitle)
 {
 	Gui, Destroy
 	static PauseButton
+
+	UdsDate := PtInfo[13]
+	NaloxDate :=P tInfo[19]
+
+	FormatTime, UdsDate, %UdsDate%, ShortDate
+	FormatTime, NaloxDate, %NaloxDate%, ShortDate
+
 	Gui, 99:New , +AlwaysOnTop +Resize, %BatchTitle%
-	Gui, 99:Add, Text,, % PtInfo[1]", "PtInfo[2]", SSN: "PtInfo[3]"`n"PtInfo[37]" Last Rx:"PtInfo[36] ;"`nLast UDS:"PtInfo[13]`n"
+	Gui, 99:Add, Text,, % PtInfo[1]", "PtInfo[2]", SSN: "PtInfo[3]"`n"PtInfo[37]" || Last Rx:"PtInfo[36]"`nLast UDS:" UdsDate " || Last Naloxone:" NaloxDate
 
 	IsPaused := false
 	BttnLabel := 0

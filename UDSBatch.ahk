@@ -10,10 +10,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 #InstallKeybdHook       ;Installs needed hook for hotstring/hotkeys
 #UseHook                ;Enables needed hook for hotstring/hotkeys (can also use $ in front of hotkey)
-SetControlDelay, 200
+;SetControlDelay, 100
 SetTitleMatchMode, 2
 DetectHiddenText, Off
-SetKeyDelay, 1,1
+DetectHiddenWindows, On
+SetKeyDelay, 1, 1, 1   ;Sets the delay that will occur after each keystroke sent by Send and ControlSend. SetKeyDelay [, Delay, PressDuration, Play]1 
 
 IfWinNotExist, ahk_exe CPRSChart.exe
 {
@@ -21,8 +22,15 @@ IfWinNotExist, ahk_exe CPRSChart.exe
 	ExitApp
 }
 
-SetTimer, MainThread, -1
+GroupAdd, ComplexCloseGroup, Restricted Record ahk_class #32770 ahk_exe CPRSChart.exe ;Closes Restricted Record
+GroupAdd, SimpleCloseGroup, Patient Record Flags ahk_class TfrmFlags ahk_exe CPRSChart.exe ;Closes Patient Record Flags
+GroupAdd, SimpleCloseGroup, Patient Lookup Messages ahk_class TfrmPtSelMsg ahk_exe CPRSChart.exe
+;GroupAdd, CloseGroup, ahk_class TfrmSignon
+
+;ahk_group CloseGroup
+
 SetTimer, ClosePopup, 50
+SetTimer, MainThread, -1
 return
 
 MainThread:
@@ -31,6 +39,10 @@ DateDiff := MonthsSinceDone * 30 ;5 Months x 30 days
 DueDate := A_Now
 DueDate += -DateDiff, days
 
+Global IsWinClosedGlobal := ""
+Global IsWinOpenGlobal := ""
+
+/*
 url := "https://reports.vssc.med.va.gov/ReportServer/Pages/ReportViewer.aspx?%2fPC%2fAlmanac%2fPAIN_ProviderWEB&rs:Command=Render"
 run, %url%
 sleep 2000
@@ -46,33 +58,35 @@ This program will automatically find patients missing a UDS in the last %MonthsS
 
 FileSelectFile, BatchFile,,,Select CSV List to Order UDS and Send Note, Comma Separated Value File (*.CSV)
 ListOfNames := CSVtoArray(BatchFile)
+*/
 
-;ListOfNames := CSVtoArray("PAIN_ProviderWEB.csv")
+;ListOfNames := CSVtoArray("U:\My Documents\PAIN_ProviderWEB BK.csv")
+;ListOfNames := CSVtoArray("U:\My Documents\Mcbryde 6-19 PAIN_ProviderWEB (1).csv")
+ListOfNames := CSVtoArray("U:\My Documents\PAIN_ProviderWEB SCRUBBED.csv")
+
+
 
 #IfWinActive, ahk_exe CPRSChart.exe ;CPRS 2.0
 WinActivate, ahk_exe CPRSChart.exe
-IfWinNotExist, Patient Selection ahk_class TfrmPtSel
-	send !fn
-WinWaitActive, Patient Selection ahk_class TfrmPtSel
 
 For k, v in ListOfNames
 {	
 	if (k>1 and v[13] < DueDate and v[32] = "" ) ;removes header, checks past duedate, and skips palliative pts
 	{
 ;		msgbox % v[1]v[2]v[3]v[32]
+
 		OpenChart(v, "Batch UDS Program")
 		if !UdsAlreadyOrdered()
 		{
+			OrderUDS()
 
-		OrderUDS()
-;		send ^n		
-		LastDone := v[13]
-;		msgbox % "Preformat="LastDone
-		FormatTime, LastDone, %LastDone%, ShortDate
-;		msgbox % "Formatted="LastDone
-		Message =`n`tI am writing to inform you that per VA policy, completion of a Urine Toxicology screening is required twice a year or as directed by your primary care provider.`n`n`tAccording to our records you are due for a 6 month urine drug screen which needs to be completed within this refill and no further refills will be issued until the Urine Toxicology Screening is completed. There is no need to schedule an appointment with your primary care provider at this time. Lab orders for the urine drug screen have been placed for you, please report to lab at your earliest convenience to have these tests completed.`n`n`t**Last Urine Tox Screen completed: %LastDone%**`n`n`tIf you have any further questions or concerns, please call the phone number at the top of this letter.
-		LetterWriter(Message)
-		Msgbox Review and Sign orders, and go to new patient when ready
+			LastDone := v[13]
+	;		msgbox % "Preformat="LastDone
+			FormatTime, LastDone, %LastDone%, ShortDate
+	;		msgbox % "Formatted="LastDone
+			Message =`tI am writing to inform you that per VA policy, completion of a Urine Toxicology screening is required twice a year or as directed by your primary care provider.`n`n`tAccording to our records you are due for a 6 month urine drug screen which needs to be completed within this refill and no further refills will be issued until the Urine Toxicology Screening is completed. There is no need to schedule an appointment with your primary care provider at this time. Lab orders for the urine drug screen have been placed for you, please report to lab at your earliest convenience to have these tests completed.`n`n`t**Last Urine Tox Screen completed: %LastDone%**`n`n`tIf you have any further questions or concerns, please call the phone number at the top of this letter.
+			LetterWriter(Message)
+;			Msgbox Review and Sign orders. Click OK to go to next patient when ready
 		}
 	}
 
@@ -90,10 +104,11 @@ UdsAlreadyOrdered()
 {
 	UDSOrdered := false
 	WinWaitActive, VistA CPRS ahk_class TfrmFrame ahk_exe CPRSChart.exe
-	send ^r
-	while !CPRSPage("Reports Page")
-		sleep 500
-	FindReportPage("Lab Status", "L")
+	GotoCPRSPage("Report")
+
+	;SendTorTreeView(GoalTT, SendKeys, WinTitle, WinText:="", GoalOffset:=0, TButtonToggle:="", PageShortcutKey:="")
+	SendTorTreeView("Available Reports", "{LEFT 4}L{SPACE}", "VistA CPRS in use by ahk_class TfrmFrame ahk_exe CPRSChart.exe")
+;	FindReportPage("Lab Status", "{left 4}L{space}")
 
 /*
 	ControlSend,TORTreeView1,{home}, VistA CPRS ahk_class TfrmFrame ahk_exe CPRSChart.exe, Reports Page
@@ -115,7 +130,7 @@ UdsAlreadyOrdered()
 		}
 	}
 */
-	Control, Check,, TRadioButton7, ahk_class TfrmFrame ahk_exe CPRSChart.exe, Reports Page ;select labs within last month
+	Control, Check,, TRadioButton7 ;select labs within last month
 ;	WinWaitActive, ahk_class TfrmFrame ahk_exe CPRSChart.exe, Reports Page
 	
 		Loop 
@@ -129,61 +144,115 @@ UdsAlreadyOrdered()
 	{
 		UDSOrdered := true
 		MsgBox Previous UDS order still active, skipping to next patient
-		send !fn
 	}
 ;	msgbox % UDSOrdered
 return UDSOrdered
 }
 
 OrderUDS()
-{
+{	
 	WinWaitActive, VistA CPRS ahk_exe CPRSChart.exe
+	GotoCPRSPage("Orders")
 	CoordMode, Mouse, Screen
 	MouseMove, 0, 0
-	send ^o
-	while !CPRSPage("Orders Page")
-		sleep 500
+	
 ;	WinWaitActive, ahk_class TfrmFrame, Orders Page
-;	ControlFocus, TORAlignButton1, ahk_class TfrmFrame, Orders Page
-	ControlSend, TORListBox1, L, ahk_class TfrmFrame, Orders Page
-;	Send {tab}{PGDN 2}{Up 10}{enter}
-	WinWaitActive, ahk_class TfrmOMNavA, Labs...
-	Send, {right 2}{down 4}{enter}
-	WinWaitActive, ahk_class TfrmOMNavA, TODAY'S OUTPATIENT LABS
-	Send, {right 2}{down 19}{enter}
-	WinWaitClose, URINE TOXICOLOGY ORDER SET ahk_class TfrmOMNavA
-	WinWaitActive, ahk_class TfrmOMNavA, TODAY'S OUTPATIENT LABS
-	Control, check,,TORAlignButton1
-	WinWaitClose, ahk_class TfrmOMNavA, TODAY'S OUTPATIENT LABS
+;	ControlFocus, TORListBox1, ahk_class TfrmFrame, Orders Page,, Consults Page
+;	send L
+;
+
+
+	ControlSend, TORListBox1, L, ahk_class TfrmFrame ahk_exe CPRSChart.exe, Orders Page ;Brings up Lab page
+
+/*
+	WinWait, Order Menu ahk_class TfrmOMNavA ahk_exe CPRSChart.exe, Consult Orders,3
+	WinActivate
+	send {escape}
+	send ^o
+*/
+
+;	WinActivate, Order Menu ahk_class TfrmOMNavA ahk_exe CPRSChart.exe, Labs`. ;Activates Lab page
+
+;;	Send {tab}{PGDN 2}{Up 10}{enter}
+					
+;	WinWaitActive
+	WinWait, Order Menu ahk_class TfrmOMNavA ahk_exe CPRSChart.exe, Labs`.
+
+	ControlSend, TCaptionStringGrid1,{right 2}{down 4}{enter}
+
+	WinWait, Order Menu ahk_class TfrmOMNavA, TODAY'S OUTPATIENT LABS
+	ControlSend, TCaptionStringGrid1, {right 2}{down 19}{enter}
+	
+	IsWinClosedGlobal := "URINE TOXICOLOGY ORDER SET ahk_class TfrmOMSet"
+;	BusyPause("URINE TOXICOLOGY ORDER SET ahk_class TfrmOMSet")
+	
+	WinWaitActive, Order Menu ahk_class TfrmOMNavA, TODAY'S OUTPATIENT LABS
+	Control, check,, TORAlignButton1
+	send {enter}
+	WinWaitClose
+
 }
 
 ;-------------------------------------------------------------------------
 
-ClosePopup:	;Runs In Background
+ClosePopup:	;Runs In Background and closes Popups
+	If !WinExist("CPRS Assist") ;Disable concurrent popup blocks if CPRS Assist is active
+		{
+			IfWinExist, Location for Current Activities ahk_class TfrmEncounter ahk_exe CPRSChart.exe, Encounter Location, Provider ;CLOSES LOCATION AND FILLS IN 00
+			{
+				WinActivate
+				send +{tab}{right 2}{tab}
+				send 00{enter}
+				WinWaitClose
+			}
+	
+			IfWinExist, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph ;CLOSES NALOXONE/OPIATE DUPLICATE NOTICE
+			{
+				WinActivate, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
+				ControlGetText, OrderCheckMsg, TRichEdit1
+				DeleteNonVAMedCheck:=""
+				if InStr(OrderCheckMsg, "Duplicate opioid medications:  [1] NALOXONE RESCUE")
+					control, check,, TButton3, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
 
-	IfWinExist, Location for Current Activities ahk_class TfrmEncounter ahk_exe CPRSChart.exe, Encounter Location, Provider ;CLOSES LOCATION AND FILLS IN 00
+				if InStr(OrderCheckMsg, "Order Checks could not be done for Drug: NO NON-VA MEDS REPORTED, please complete a manual check for Drug Interactions and Duplicate Therapy.")
+					control, check,, TButton3, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
+
+				WinWaitClose, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
+				return
+			}
+		}
+
+	IfWinExist, ahk_group SimpleCloseGroup ;Closes one button dialogue boxes (see top of script)
 	{
 		WinActivate
-		send +{tab}{right 2}{tab}
-		send 00{enter}
+		send {enter}
 		WinWaitClose
+		return
+	}
+
+	IfWinExist, ahk_group ComplexCloseGroup ;Closes multi-button dialogue boxes (see top of script)
+	{
+	
+		WinActivate
+
+		Loop
+		{
+			ButtonNumber := A_Index
+;			msgbox % ButtonNumber
+			controlgettext, ButtonText, Button%ButtonNumber%
+			If A_Index >4 
+			{
+				ButtonNumber := 0
+				msgbox Can't find Ok Button
+				Break
+			}
+		} until (InStr(ButtonText,"ok") or InStr(ButtonText,"yes") or InStr(ButtonText,"close"))
+		if ButtonNumber
+			control, check,, Button%ButtonNumber%
+		WinWaitClose
+		return
 	}
 	
-	IfWinExist, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph ;CLOSES NALOXONE/OPIATE DUPLICATE NOTICE
-	{
-		WinActivate, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
-		ControlGetText, OrderCheckMsg, TRichEdit1
-		DeleteNonVAMedCheck:=""
-		if InStr(OrderCheckMsg, "Duplicate opioid medications:  [1] NALOXONE RESCUE")
-			control, check,, TButton3, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
-
-		if InStr(OrderCheckMsg, "Order Checks could not be done for Drug: NO NON-VA MEDS REPORTED, please complete a manual check for Drug Interactions and Duplicate Therapy.")
-			control, check,, TButton3, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
-
-		WinWaitClose, Order Checking ahk_class TfrmOCAccept ahk_exe CPRSChart.exe, Drug Interaction Monograph
-	}
-
-	while (A_Cursor = AppStarting) or (A_Cursor = Wait)
-	sleep 500
+	BusyPause()
 
 return
