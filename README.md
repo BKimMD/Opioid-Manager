@@ -1,8 +1,8 @@
-Opioid Manager
+Opioid Manager CDS
 ==============
 
-Two programs to manage urine drug screenings and naloxone prescriptions in long
-term opiate populations within CPRS
+Clinical Decision Support (CDS) tool of two programs to manage urine drug screenings and naloxone prescriptions in long
+term opiate populations within CPRS.
 
 **Naloxone Batch and UDS (Urine Drug Screen) Batch**
 
