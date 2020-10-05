@@ -22,8 +22,6 @@ mail out letters if overdue
 
 ![](media/d023f343a21771cf4e5bc82d1d865122.png)
 
->   C:\\Users\\X1\\Documents\\Opioid-Manager\\index_files\\image002.png
-
 >   4.       Opens chart in CPRS of selected patient on list and tries to
 >   close/wait for popups to be manually closed
 
