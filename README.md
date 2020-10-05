@@ -10,7 +10,7 @@ For a given provider’s long-term opioid patients, creates Nalxone/UDS orders 
 mail out letters if overdue
 
 >   1.       Opens VSSC report website (see Notes) so that a comma separated
->   file filtered for a given provider and opioid therapy type can be saved. 
+>   file filtered for a given provider and opioid therapy type can be generated. 
 
 >   2.       After selecting saved CSV file, program reads list of patient names
 >   in a csv file and determines whether to skip patient based on dates last
