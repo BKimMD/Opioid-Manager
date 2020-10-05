@@ -1,7 +1,7 @@
 Opioid Manager CDS
 ==============
 
-Clinical Decision Support (CDS) tool of two programs to manage urine drug screenings and naloxone prescriptions in long
+Opioid Manger is a Clinical Decision Support (CDS) program to manage urine drug screenings and naloxone prescriptions in long
 term opiate populations within CPRS.
 
 **Naloxone Batch and UDS (Urine Drug Screen) Batch**
@@ -48,15 +48,13 @@ to other centers), uses CPRS letter writer and auto-adds 00-Location.
 NaloxoneBatch.ahk and UDSBatch.ahk are the main scripts respectively.
 
 Create CSV (comma separated value) file of patients with ssn that require
-naloxone/UDS. Can be done through this site (primary care almanac):
+naloxone/UDS. Can be done through this site (primary care almanac, requires VA intranet access):
 
 https://securereports2.vssc.med.va.gov/ReportServer/Pages/ReportViewer.aspx?%2fPC%2fAlmanac%2fPAIN_ProviderCPRS&rs:Command=Render&rc:Parameters=true
 
 If script seems to stumble at various steps, go ahead and try to click on tab of
 next step and the script should pickup from there.  I’m still working on making
 it more reliable.
-
- 
 
 Working on:
 
