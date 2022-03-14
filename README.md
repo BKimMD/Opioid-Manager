@@ -22,7 +22,7 @@ CPRS tasks started before program was ran):
 4.       Opens chart in CPRS of selected patient on list and tries to
 close/wait for popups to be manually closed
 
- -       For UDS, checks to see if there’s already an existing UDS order
+         -       For UDS, checks to see if there’s already an existing UDS order
 within last month and will try to go to next patient if order exists
 
 5.       Creates order for naloxone/UDS
@@ -53,15 +53,15 @@ it more reliable.
 
 Working on:
 
-•         Add multi-physician functions
+- Add multi-physician functions
 
-o   Create pending orders/notes under primary opioid prescriber so they can
+  - Create pending orders/notes under primary opioid prescriber so they can
 review/sign-off as view alert on CPRS
 
-o   Managing prescriber buy-in will be complex and require time to consider
+  - Managing prescriber buy-in will be complex and require time to consider
 least intrusive design and ongoing changes based on feedback
 
-o  Need to account for providers who opt out, and keep track of which
+  - Need to account for providers who opt out, and keep track of which
 providers have been sent alerts on X number of patients per timeframe
 
 •         Considering 1-2 patients/wk/provider on a low view alert day until
