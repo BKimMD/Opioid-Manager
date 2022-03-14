@@ -23,15 +23,15 @@ close/wait for popups to be manually closed
 
    - For UDS, checks to see if there’s already an existing UDS order within last month and will try to go to next patient if order exists
 
-5. Creates order for naloxone/UDS
+5. Creates order for naloxone/UDS
 
-6. Creates follow-up note (using the CPRS template that auto mails out to the patient) with naloxone/UDS info
+6. Creates follow-up note (using the CPRS template that auto mails out to the patient) with naloxone/UDS info
 
-7. Waits for provider to review/sign-off on both the order and note and to go to the Patient Selection box
+7. Waits for provider to review/sign-off on both the order and note and to go to the Patient Selection box
 
-8. Reads next name on list and repeats until list is complete
+8. Reads next name on list and repeats until list is complete
 
-Notes:
+#### Notes
 
 Works only for Rocky Mountain Regional VA Medical Center (but can be localized to other centers), uses CPRS letter writer and auto-adds 00-Location.
 
