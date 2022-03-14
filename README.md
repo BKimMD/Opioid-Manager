@@ -50,7 +50,7 @@ it more reliable.
 
   - Create pending orders/notes under primary opioid prescriber so they can review/sign-off as view alert on CPRS
 
-  - Manage prescriber buy-in will be complex and require time to consider least intrusive design and ongoing changes based on feedback
+  - Manage prescriber buy-in will be complex and require time to consider least intrusive design and ongoing changes based on feedback
 
   - Need to account for providers who opt out, and keep track of which
 providers have been sent alerts on X number of patients per timeframe
