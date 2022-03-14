@@ -3,11 +3,11 @@
 Opioid Manger is a Clinical Decision Support (CDS) program to manage urine drug screenings and naloxone prescriptions in long
 term opiate populations within CPRS.
 
-## Naloxone Batch and UDS (Urine Drug Screen) Batch Processor
+## Naloxone and UDS (Urine Drug Screen) Batch Processor
 
 For a group of long-term opioid patients, Nalxone/UDS orders and mail out letters are automatically generated if overdue
 
-### Automated Steps
+### Automated Process
 
 1. Opens VSSC report website (see Notes) so that a comma separated file filtered for a given provider and opioid therapy type can be generated. 
 
