@@ -14,7 +14,7 @@ For a group of long-term opioid patients, Nalxone/UDS orders and mail out letter
 2. After selecting saved CSV file, program reads list of patient names in a csv file and determines whether to skip patient based on dates last
 ordered (13 months for Naloxone, 5 months for UDS) and skipping palliative care patients (for UDS)
 
-3. Waits for Patient Selection page on CPRS (so provider can finish CPRS tasks started before program was ran):
+3. Waits for Patient Selection page on CPRS (so provider can finish other CPRS tasks started):
 
 ![](media/d023f343a21771cf4e5bc82d1d865122.png)
 
