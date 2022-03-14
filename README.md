@@ -1,5 +1,4 @@
 # Opioid Manager CDS
-==============
 
 Opioid Manger is a Clinical Decision Support (CDS) program to manage urine drug screenings and naloxone prescriptions in long
 term opiate populations within CPRS.
@@ -23,7 +22,7 @@ CPRS tasks started before program was ran):
 4.       Opens chart in CPRS of selected patient on list and tries to
 close/wait for popups to be manually closed
 
-a.       For UDS, checks to see if there’s already an existing UDS order
+ -       For UDS, checks to see if there’s already an existing UDS order
 within last month and will try to go to next patient if order exists
 
 5.       Creates order for naloxone/UDS
