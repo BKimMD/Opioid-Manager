@@ -7,33 +7,35 @@ term opiate populations within CPRS.
 
 For a group of long-term opioid patients, Nalxone/UDS orders and mail out letters are automatically generated if overdue
 
-1.       Opens VSSC report website (see Notes) so that a comma separated file filtered for a given provider and opioid therapy type can be generated. 
+### Automated Steps
 
-2.       After selecting saved CSV file, program reads list of patient names
+1. Opens VSSC report website (see Notes) so that a comma separated file filtered for a given provider and opioid therapy type can be generated. 
+
+2. After selecting saved CSV file, program reads list of patient names
 in a csv file and determines whether to skip patient based on dates last
 ordered (13 months for Naloxone, 5 months for UDS) and skipping palliative
 care patients (for UDS)
 
-3.       Waits for Patient Selection page on CPRS (so provider can finish
+3. Waits for Patient Selection page on CPRS (so provider can finish
 CPRS tasks started before program was ran):
 
 ![](media/d023f343a21771cf4e5bc82d1d865122.png)
 
-4.       Opens chart in CPRS of selected patient on list and tries to
+4. Opens chart in CPRS of selected patient on list and tries to
 close/wait for popups to be manually closed
 
-         -       For UDS, checks to see if there’s already an existing UDS order
+   - For UDS, checks to see if there’s already an existing UDS order
 within last month and will try to go to next patient if order exists
 
-5.       Creates order for naloxone/UDS
+5. Creates order for naloxone/UDS
 
-6.       Creates follow-up note (using the CPRS template that auto mails out
+6. Creates follow-up note (using the CPRS template that auto mails out
 to the patient) with naloxone/UDS info
 
-7.       Waits for provider to review/sign-off on both the order and note
+7. Waits for provider to review/sign-off on both the order and note
 and to go to the Patient Selection box
 
-8.       Reads next name on list and repeats until list is complete
+8. Reads next name on list and repeats until list is complete
 
 Notes:
 
@@ -51,7 +53,7 @@ If script seems to stumble at various steps, go ahead and try to click on tab of
 next step and the script should pickup from there.  I’m still working on making
 it more reliable.
 
-Working on:
+### Next Steps
 
 - Add multi-physician functions
 
@@ -64,16 +66,16 @@ least intrusive design and ongoing changes based on feedback
   - Need to account for providers who opt out, and keep track of which
 providers have been sent alerts on X number of patients per timeframe
 
-•         Considering 1-2 patients/wk/provider on a low view alert day until
+  - Considering 1-2 patients/wk/provider on a low view alert day until
 providers are familiar with the program
 
-•         Drafting emails and survey/feedback mechanisms to customize
+  - Drafting emails and survey/feedback mechanisms to customize
 frequency for each provider
 
-•         Store this info on a local database (likely will use JSON, but
+  - Store this info on a local database (likely will use JSON, but
 reviewing other formats)
 
-•         Analysis of before/after conditions-improvement in number of
+  - Analysis of before/after conditions-improvement in number of
 patients compliant with UDS/naloxone, and prescriber satisfaction
 
 
