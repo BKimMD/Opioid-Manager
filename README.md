@@ -9,16 +9,16 @@ For a group of long-term opioid patients, Nalxone/UDS orders and mail out letter
 
 ### Automated Process
 
-1.Opens VSSC report website (see Notes) so that a comma separated file filtered for a given provider and opioid therapy type can be generated. 
+1. Opens VSSC report website (see Notes) so that a comma separated file filtered for a given provider and opioid therapy type can be generated. 
 
-2.After selecting saved CSV file, program reads list of patient names in a csv file and determines whether to skip patient based on dates last
+2. After selecting saved CSV file, program reads list of patient names in a csv file and determines whether to skip patient based on dates last
 ordered (13 months for Naloxone, 5 months for UDS) and skipping palliative care patients (for UDS)
 
-3.Waits for Patient Selection page on CPRS (so provider can finish CPRS tasks started before program was ran):
+3. Waits for Patient Selection page on CPRS (so provider can finish CPRS tasks started before program was ran):
 
 ![](media/d023f343a21771cf4e5bc82d1d865122.png)
 
-4.Opens chart in CPRS of selected patient on list and tries to
+4. Opens chart in CPRS of selected patient on list and tries to
 close/wait for popups to be manually closed
 
    - For UDS, checks to see if there’s already an existing UDS order within last month and will try to go to next patient if order exists
