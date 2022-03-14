@@ -31,13 +31,14 @@ close/wait for popups to be manually closed
 
 8. Reads next name on list and repeats until list is complete
 
-#### Notes
+### Notes
 
-Works only for Rocky Mountain Regional VA Medical Center (but can be localized to other centers), uses CPRS letter writer and auto-adds 00-Location.
+Works only for Rocky Mountain Regional VA Medical Center (but can be localized to other centers). 
+Uses CPRS letter writer and auto-adds 00-Location.
 
-NaloxoneBatch.ahk and UDSBatch.ahk are the main scripts respectively.
+NaloxoneBatch.ahk and UDSBatch.ahk are the main scripts.
 
-Create CSV (comma separated value) file of patients with ssn that require naloxone/UDS. Can be done through this site (primary care almanac, requires VA intranet access):
+Create CSV (comma separated value) file of patients who require naloxone/UDS. List can be generated from (primary care almanac, requires VA intranet access):
 
 https://securereports2.vssc.med.va.gov/ReportServer/Pages/ReportViewer.aspx?%2fPC%2fAlmanac%2fPAIN_ProviderCPRS&rs:Command=Render&rc:Parameters=true
 
