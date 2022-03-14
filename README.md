@@ -9,34 +9,33 @@ term opiate populations within CPRS.
 For a given provider’s long-term opioid patients, creates Nalxone/UDS orders and
 mail out letters if overdue
 
->   1.       Opens VSSC report website (see Notes) so that a comma separated
->   file filtered for a given provider and opioid therapy type can be generated. 
+1.       Opens VSSC report website (see Notes) so that a comma separated file filtered for a given provider and opioid therapy type can be generated. 
 
->   2.       After selecting saved CSV file, program reads list of patient names
->   in a csv file and determines whether to skip patient based on dates last
->   ordered (13 months for Naloxone, 5 months for UDS) and skipping palliative
->   care patients (for UDS)
+2.       After selecting saved CSV file, program reads list of patient names
+in a csv file and determines whether to skip patient based on dates last
+ordered (13 months for Naloxone, 5 months for UDS) and skipping palliative
+care patients (for UDS)
 
->   3.       Waits for Patient Selection page on CPRS (so provider can finish
->   CPRS tasks started before program was ran):
+3.       Waits for Patient Selection page on CPRS (so provider can finish
+CPRS tasks started before program was ran):
 
 ![](media/d023f343a21771cf4e5bc82d1d865122.png)
 
->   4.       Opens chart in CPRS of selected patient on list and tries to
->   close/wait for popups to be manually closed
+4.       Opens chart in CPRS of selected patient on list and tries to
+close/wait for popups to be manually closed
 
->   a.       For UDS, checks to see if there’s already an existing UDS order
->   within last month and will try to go to next patient if order exists
+a.       For UDS, checks to see if there’s already an existing UDS order
+within last month and will try to go to next patient if order exists
 
->   5.       Creates order for naloxone/UDS
+5.       Creates order for naloxone/UDS
 
->   6.       Creates follow-up note (using the CPRS template that auto mails out
->   to the patient) with naloxone/UDS info
+6.       Creates follow-up note (using the CPRS template that auto mails out
+to the patient) with naloxone/UDS info
 
->   7.       Waits for provider to review/sign-off on both the order and note
->   and to go to the Patient Selection box
+7.       Waits for provider to review/sign-off on both the order and note
+and to go to the Patient Selection box
 
->   8.       Reads next name on list and repeats until list is complete
+8.       Reads next name on list and repeats until list is complete
 
 Notes:
 
@@ -56,45 +55,45 @@ it more reliable.
 
 Working on:
 
->   •         Add multi-physician functions
+•         Add multi-physician functions
 
->   o   Create pending orders/notes under primary opioid prescriber so they can
->   review/sign-off as view alert on CPRS
+o   Create pending orders/notes under primary opioid prescriber so they can
+review/sign-off as view alert on CPRS
 
->   o   Managing prescriber buy-in will be complex and require time to consider
->   least intrusive design and ongoing changes based on feedback
+o   Managing prescriber buy-in will be complex and require time to consider
+least intrusive design and ongoing changes based on feedback
 
->     Need to account for providers who opt out, and keep track of which
->   providers have been sent alerts on X number of patients per timeframe
+  Need to account for providers who opt out, and keep track of which
+providers have been sent alerts on X number of patients per timeframe
 
->   •         Considering 1-2 patients/wk/provider on a low view alert day until
->   providers are familiar with the program
+•         Considering 1-2 patients/wk/provider on a low view alert day until
+providers are familiar with the program
 
->   •         Drafting emails and survey/feedback mechanisms to customize
->   frequency for each provider
+•         Drafting emails and survey/feedback mechanisms to customize
+frequency for each provider
 
->   •         Store this info on a local database (likely will use JSON, but
->   reviewing other formats)
+•         Store this info on a local database (likely will use JSON, but
+reviewing other formats)
 
->   •         Analysis of before/after conditions-improvement in number of
->   patients compliant with UDS/naloxone, and prescriber satisfaction
+•         Analysis of before/after conditions-improvement in number of
+patients compliant with UDS/naloxone, and prescriber satisfaction
 
->    
 
->   •         Add prompts to enter last dates cutoffs
 
->   •         Auto populate VSSC report and auto download CSV file so step 1
->   will be transparent
+•         Add prompts to enter last dates cutoffs
 
->   o   Add more flexibility to the CSV columns accepted
->   (currently hard-coded by column number)
+•         Auto populate VSSC report and auto download CSV file so step 1
+will be transparent
 
->   •         Improve reliability and recovery of outlying conditions
+o   Add more flexibility to the CSV columns accepted
+(currently hard-coded by column number)
 
->   •         Create similar program for PDMP (Prescription Drug Monitoring
->   Program) management
+•         Improve reliability and recovery of outlying conditions
 
->   o   After inquiring about API usage, would require licensee agreement and
->   BAA with Appriss Health
+•         Create similar program for PDMP (Prescription Drug Monitoring
+Program) management
+
+o   After inquiring about API usage, would require licensee agreement and
+BAA with Appriss Health
 
  
