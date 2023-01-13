@@ -1,6 +1,6 @@
 [![Naloxone Automation Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 
-[![](https://markdown-videos.deta.dev/youtube/dQw4w9WgXcQ)](https://youtu.be/dQw4w9WgXcQ)
+[![](https://markdown-videos.deta.dev/youtube/i5SNutmnuok)](https://youtu.be/i5SNutmnuok)
 
 [![Final video of fixing issues in your code in VS Code]
 (https://img.youtube.com/vi/i5SNutmnuok/maxresdefault.jpg)]
