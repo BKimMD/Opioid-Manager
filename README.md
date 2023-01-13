@@ -1,4 +1,15 @@
+[![Naloxone Automation Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
+[![](https://markdown-videos.deta.dev/youtube/dQw4w9WgXcQ)](https://youtu.be/dQw4w9WgXcQ)
+
+[![Final video of fixing issues in your code in VS Code]
+(https://img.youtube.com/vi/i5SNutmnuok/maxresdefault.jpg)]
+(https://www.youtube.com/watch?v=i5SNutmnuok)
+
+https://i.ytimg.com/vi/i5SNutmnuok/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AH-CYAC0AWKAgwIABABGFggYChlMA8=&rs=AOn4CLDbt4bRviUk654HS8tRuFj8PRpFfw
+
 https://youtu.be/i5SNutmnuok
+https://youtu.be/Iu8TqHPBRSw
 
 # Opioid Manager CDS
 
