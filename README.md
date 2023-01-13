@@ -2,6 +2,8 @@
 
 [![](https://markdown-videos.deta.dev/youtube/i5SNutmnuok)](https://youtu.be/i5SNutmnuok)
 
+[![](https://markdown-videos.deta.dev/youtube/Iu8TqHPBRSw)](https://youtu.be/Iu8TqHPBRSw)
+
 [![Final video of fixing issues in your code in VS Code]
 (https://img.youtube.com/vi/i5SNutmnuok/maxresdefault.jpg)]
 (https://www.youtube.com/watch?v=i5SNutmnuok)
