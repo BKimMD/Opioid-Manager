@@ -1,9 +1,3 @@
-# Naloxone Automation Demo
-[![](https://markdown-videos.deta.dev/youtube/i5SNutmnuok)](https://youtu.be/i5SNutmnuok)
-
-# Urine Drug Screen Automation Demo
-[![](https://markdown-videos.deta.dev/youtube/Iu8TqHPBRSw)](https://youtu.be/Iu8TqHPBRSw)
-
 # Opioid Manager CDS
 
 Opioid Manger is a Clinical Decision Support (CDS) program to manage urine drug screenings and naloxone prescriptions in long
